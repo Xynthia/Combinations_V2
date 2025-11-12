@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://5w8vkgxpw3rp"]
+
+[ext_resource type="Script" uid="uid://cda6feolq4mwq" path="res://Scripts/ui.gd" id="1_jxero"]
+[ext_resource type="FontFile" uid="uid://uh472rope3n2" path="res://Assets/Font/Kenney Pixel.ttf" id="2_qdvrb"]
+
+[node name="UI" type="CanvasLayer"]
+layer = 99
+script = ExtResource("1_jxero")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HealtPoints" type="HBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Health1" type="ColorRect" parent="MarginContainer/CenterContainer/HealtPoints"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(0.70256805, 0, 0.11575932, 1)
+
+[node name="Health2" type="ColorRect" parent="MarginContainer/CenterContainer/HealtPoints"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(0.70256805, 0, 0.11575932, 1)
+
+[node name="Health3" type="ColorRect" parent="MarginContainer/CenterContainer/HealtPoints"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(0.70256805, 0, 0.11575932, 1)
+
+[node name="Health4" type="ColorRect" parent="MarginContainer/CenterContainer/HealtPoints"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(0.70256805, 0, 0.11575932, 1)
+
+[node name="Health5" type="ColorRect" parent="MarginContainer/CenterContainer/HealtPoints"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(0.70256805, 0, 0.11575932, 1)
+
+[node name="CenterContainer2" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer2"]
+visible = false
+layout_mode = 2
+text = "Enemies left: "
+
+[node name="CenterContainer3" type="CenterContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/CenterContainer3"]
+custom_minimum_size = Vector2(1500, 1000)
+layout_mode = 2
+color = Color(0.65655136, 0.9999997, 0.77793443, 1)
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_qdvrb")
+theme_override_font_sizes/font_size = 92
+text = "you won!!"
+
+[node name="Timer" type="Timer" parent="MarginContainer/CenterContainer3"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="visibility_changed" from="MarginContainer/CenterContainer3" to="." method="_on_center_container_3_visibility_changed"]
+[connection signal="timeout" from="MarginContainer/CenterContainer3/Timer" to="." method="_on_timer_timeout"]

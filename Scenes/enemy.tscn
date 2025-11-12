@@ -1,0 +1,184 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddjp85as5pb6i"]
+
+[ext_resource type="Script" uid="uid://bupn1lpywffkf" path="res://Scripts/enemy.gd" id="1_hghv2"]
+[ext_resource type="AnimationLibrary" uid="uid://bhgx8r2mgimxu" path="res://Assets/animations/EnemyAnimation.res" id="2_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://duok2p6b3nrg5" path="res://Assets/1-Bit Pack/Tilesheet/monochrome-transparent.png" id="2_afpow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
+atlas = ExtResource("2_afpow")
+region = Rect2(306, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0830c"]
+atlas = ExtResource("2_afpow")
+region = Rect2(323, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
+atlas = ExtResource("2_afpow")
+region = Rect2(340, 119, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dp5w"]
+atlas = ExtResource("2_afpow")
+region = Rect2(357, 119, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_auwsv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_287tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0830c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dp5w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hghv2"]
+size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
+radius = 281.02847
+
+[sub_resource type="Animation" id="Animation_hghv2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack/AttackBeam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-42, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack/AttackBeam:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack/AttackBeam:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5707964]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1f0kj"]
+_data = {
+&"RESET": SubResource("Animation_hghv2")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afpow"]
+size = Vector2(62.000015, 15.999999)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
+radius = 105.23308
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy", "PushableOpbject"]]
+collision_layer = 4
+collision_mask = 25
+script = ExtResource("1_hghv2")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.937151e-06, 0)
+scale = Vector2(3.9999998, 4)
+sprite_frames = SubResource("SpriteFrames_auwsv")
+autoplay = "default"
+frame_progress = 0.92628396
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_hghv2")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(40, 0)
+collision_mask = 15
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-40, 0)
+collision_mask = 15
+
+[node name="ViewRange" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewRange"]
+shape = SubResource("CircleShape2D_hghv2")
+debug_color = Color(0.8186557, 0.40479138, 3.85046e-07, 0.41960785)
+
+[node name="Attack" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Attack"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_1f0kj"),
+&"EnemyAnimation": ExtResource("2_1f0kj")
+}
+
+[node name="AttackBeam" type="ColorRect" parent="Attack"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 16)
+layout_direction = 2
+layout_mode = 0
+offset_left = -42.0
+offset_top = -8.0
+offset_right = 22.0
+offset_bottom = 8.0
+rotation = -1.5707964
+pivot_offset = Vector2(0, 8)
+metadata/_edit_use_anchors_ = true
+
+[node name="AttackBeamArea" type="Area2D" parent="Attack/AttackBeam"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/AttackBeam/AttackBeamArea"]
+position = Vector2(31.999992, 8)
+shape = SubResource("RectangleShape2D_afpow")
+debug_color = Color(0.9833533, 0, 0.35813457, 0.41960785)
+
+[node name="AttackCooldownTimer" type="Timer" parent="Attack/AttackBeam"]
+wait_time = 0.8
+one_shot = true
+
+[node name="attackArea" type="Area2D" parent="Attack"]
+collision_mask = 3
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Attack/attackArea"]
+shape = SubResource("CircleShape2D_1f0kj")
+
+[node name="PushTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="body_entered" from="ViewRange" to="." method="_on_view_range_body_entered"]
+[connection signal="body_exited" from="ViewRange" to="." method="_on_view_range_body_exited"]
+[connection signal="body_entered" from="Attack/AttackBeam/AttackBeamArea" to="." method="_on_attack_beam_area_body_entered"]
+[connection signal="body_exited" from="Attack/AttackBeam/AttackBeamArea" to="." method="_on_attack_beam_area_body_exited"]
+[connection signal="timeout" from="Attack/AttackBeam/AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
+[connection signal="body_entered" from="Attack/attackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="Attack/attackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="timeout" from="PushTimer" to="." method="_on_push_timer_timeout"]

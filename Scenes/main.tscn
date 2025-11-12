@@ -1,0 +1,124 @@
+[gd_scene load_steps=12 format=4 uid="uid://c67q7qqn8fxjy"]
+
+[ext_resource type="Script" uid="uid://cxvge1d14bpvm" path="res://Scripts/main.gd" id="1_6bp64"]
+[ext_resource type="PackedScene" uid="uid://dkflhxx3ikg5k" path="res://Scenes/player.tscn" id="1_jyfig"]
+[ext_resource type="PackedScene" uid="uid://ddjp85as5pb6i" path="res://Scenes/enemy.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://5w8vkgxpw3rp" path="res://Scenes/ui.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://bpxjirhryj3co" path="res://Scenes/moveble_block.tscn" id="4_kry3j"]
+[ext_resource type="Texture2D" uid="uid://duok2p6b3nrg5" path="res://Assets/1-Bit Pack/Tilesheet/monochrome-transparent.png" id="5_kry3j"]
+[ext_resource type="Script" uid="uid://dwhohm6l12ep3" path="res://area_1_check.gd" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://dnwn2e5xteg2v" path="res://Scripts/area_1_check_2.gd" id="8_344ge"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_21xkr"]
+texture = ExtResource("5_kry3j")
+separation = Vector2i(1, 1)
+19:0/0 = 0
+19:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.5395775, -8, 0.8992939)
+18:1/0 = 0
+18:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+20:1/0 = 0
+20:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+18:0/0 = 0
+18:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.71943665, -0.35971832, 0.17985916, -0.53957367, 8, -8, 8)
+20:0/0 = 0
+20:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, 0.5395756, 8, -0.17985916, 0.17985916, -8, 0.17985916)
+18:2/0 = 0
+18:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, 1.7985878, 1.7985878, 1.4388714, 1.978445, -8)
+20:2/0 = 0
+20:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -1.2590103, -0.8992939, -1.2590103, -0.5395756, -8, 8, -8, 8, 8, -8, 8)
+19:2/0 = 0
+19:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -2.5180216, -8, -2.3381624)
+21:1/0 = 0
+21:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-5.5756207, -8, 5.75548, -8, 6.115196, 8, -5.75548, 8)
+
+[sub_resource type="TileSet" id="TileSet_6bp64"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 15
+physics_layer_1/collision_layer = 16
+physics_layer_1/collision_mask = 4
+sources/0 = SubResource("TileSetAtlasSource_21xkr")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
+size = Vector2(697, 237)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_6bp64")
+
+[node name="Player" parent="." instance=ExtResource("1_jyfig")]
+position = Vector2(587, 490)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("2_bo1nx")]
+position = Vector2(1571, 801)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("2_bo1nx")]
+position = Vector2(2515, 803)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("2_bo1nx")]
+position = Vector2(2504, 1119)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("2_bo1nx")]
+position = Vector2(1652, 1108)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("2_bo1nx")]
+position = Vector2(2519, 1434)
+
+[node name="MovebleBlock" parent="." instance=ExtResource("4_kry3j")]
+position = Vector2(2, 403)
+
+[node name="MovebleBlock2" parent="." instance=ExtResource("4_kry3j")]
+position = Vector2(1045, -27)
+
+[node name="MovebleBlock3" parent="." instance=ExtResource("4_kry3j")]
+position = Vector2(1685, 762)
+
+[node name="MovebleBlock4" parent="." instance=ExtResource("4_kry3j")]
+position = Vector2(2357, 753)
+
+[node name="UI" parent="." instance=ExtResource("4_jjvhh")]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(565, 13)
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray("AAD3/wgAAAATAAAAAAD4/wgAAAATAAAAAAD5/wgAAAATAAAAAAD6/wgAAAATAAAAAAD7/wgAAAATAAAAAAD8/wgAAAATAAAAAAD9/wgAAAATAAAAAAD+/wgAAAATAAAAAAD//wgAAAATAAAAAAAAAAgAAAATAAAAAAABAAgAAAATAAAAAAACAAgAAAATAAAAAAADAAgAAAATAAAAAAD2/wcAAAAUAAEAAAD2/wYAAAAUAAEAAAD2/wUAAAAUAAAAAAD1/wUAAAATAAAAAAD0/wUAAAATAAAAAADz/wUAAAATAAAAAAD7/wQAAAATAAAAAAD8/wQAAAATAAAAAAD9/wQAAAATAAAAAAD+/wQAAAATAAAAAAD//wQAAAATAAAAAAAEAAcAAAASAAEAAAAEAAYAAAASAAEAAAAEAAUAAAASAAEAAAAEAAQAAAASAAAAAAAFAAQAAAATAAAAAAAGAAQAAAATAAAAAAAHAAQAAAATAAAAAAAIAAQAAAATAAAAAAAJAAMAAAASAAEAAAAJAAIAAAASAAEAAAAIAAEAAAATAAAAAAAJAAEAAAASAAAAAAAKAAEAAAATAAAAAAALAAEAAAATAAAAAADy/wQAAAAUAAEAAADy/wMAAAAUAAEAAADy/wIAAAAUAAEAAADy/wEAAAAUAAEAAADy/wAAAAAUAAEAAADy////AAAUAAEAAADy//7/AAAUAAEAAADy//3/AAAUAAEAAADz//3/AAATAAAAAAD0//3/AAATAAAAAAD1//3/AAATAAAAAAD2//3/AAATAAAAAAD3//3/AAATAAAAAAD4//3/AAATAAAAAAD5//3/AAATAAAAAAD6//3/AAATAAAAAAD7//3/AAATAAAAAAD8//3/AAATAAAAAAD9//3/AAATAAAAAAD+//3/AAATAAAAAAD///3/AAATAAAAAAAAAP3/AAATAAAAAAABAP3/AAATAAAAAAACAP3/AAATAAAAAAADAP3/AAATAAAAAAAEAP3/AAATAAAAAAAFAP3/AAATAAAAAAAGAP3/AAATAAAAAAAHAP3/AAATAAAAAAAIAP3/AAATAAAAAAAJAP3/AAATAAAAAAAKAP3/AAATAAAAAAALAP3/AAATAAAAAAAMAP3/AAATAAAAAAANAP3/AAATAAAAAAAOAP3/AAATAAAAAAAPAP3/AAATAAAAAAAQAP3/AAATAAAAAAARAP3/AAATAAAAAAASAP3/AAATAAAAAAATAP3/AAATAAAAAAAUAP3/AAATAAAAAAAVAP3/AAATAAAAAAAWAP3/AAATAAAAAAAXAP3/AAAUAAAAAAARAAEAAAATAAAAAAASAAEAAAATAAAAAAATAAEAAAATAAAAAAAXAP7/AAAUAAEAAAAXAP//AAAUAAEAAAAXAAAAAAAUAAEAAAAXAAEAAAAUAAEAAAAXAAIAAAAUAAEAAAAXAAMAAAAUAAEAAAAXAAQAAAAUAAEAAAAUAAEAAAASAAEAAAAUAAIAAAASAAEAAAAUAAMAAAASAAEAAAAUAAQAAAASAAEAAAAUAAUAAAASAAEAAAAUAAYAAAASAAEAAAAUAAcAAAASAAEAAAAXAAUAAAAUAAEAAAAXAAYAAAAUAAEAAAAXAAcAAAAUAAEAAAAOABcAAAATAAAAAAAPABcAAAATAAAAAAAQABcAAAATAAAAAAARABcAAAATAAAAAAASABcAAAATAAAAAAATABcAAAATAAAAAAAUABcAAAATAAAAAAAVABcAAAATAAAAAAAWABcAAAATAAAAAAAXABcAAAATAAAAAAAYABcAAAATAAAAAAAZABcAAAATAAAAAAAaABcAAAATAAAAAAAbABcAAAATAAAAAAAcABcAAAATAAAAAAAdABcAAAATAAAAAAAeABcAAAATAAAAAAAfABcAAAATAAAAAAAcABIAAAATAAAAAAAdABIAAAATAAAAAAAeABIAAAATAAAAAAAfABIAAAATAAAAAAASABIAAAATAAAAAAARABIAAAATAAAAAAAQABIAAAATAAAAAAAPABIAAAATAAAAAAASAA0AAAATAAAAAAARAA0AAAATAAAAAAAQAA0AAAATAAAAAAAPAA0AAAATAAAAAAAcAA0AAAATAAAAAAAdAA0AAAATAAAAAAAeAA0AAAATAAAAAAAfAA0AAAATAAAAAAAgABYAAAASAAEAAAAgABUAAAASAAEAAAAgABMAAAASAAEAAAAgABQAAAASAAEAAAAgABIAAAASAAEAAAAgABEAAAASAAEAAAAgABAAAAASAAEAAAAgAA8AAAASAAEAAAAgAA4AAAASAAEAAAAgAA0AAAASAAEAAAAgAAwAAAASAAEAAAAgAAsAAAASAAEAAAAgAAoAAAASAAEAAAAgAAkAAAASAAEAAAAgAAgAAAASAAEAAAAYAAgAAAATAAIAAAAZAAgAAAATAAIAAAAaAAgAAAATAAIAAAAbAAgAAAATAAIAAAAcAAgAAAATAAIAAAAdAAgAAAATAAIAAAAfAAgAAAATAAIAAAAeAAgAAAATAAIAAAAXAAgAAAAUAAEAAAAUAAgAAAASAAEAAAATAAgAAAATAAIAAAASAAgAAAATAAIAAAARAAgAAAATAAIAAAAQAAgAAAATAAIAAAAPAAgAAAATAAIAAAAOAAgAAAAUAAEAAAAOAAkAAAAUAAEAAAAOAAoAAAAUAAEAAAAOAAsAAAAUAAEAAAAOAAwAAAAUAAEAAAAOAA0AAAAUAAEAAAAOAA4AAAAUAAEAAAAOAA8AAAAUAAEAAAAOABAAAAAUAAEAAAAOABEAAAAUAAEAAAAOABIAAAAUAAEAAAAOABMAAAAUAAEAAAAOABQAAAAUAAEAAAAOABUAAAAUAAEAAAAOABYAAAAUAAEAAAASABEAAAAVAAEAAAAcABEAAAAVAAEAAAAQAAEAAAATAAAAAAA=")
+tile_set = SubResource("TileSet_6bp64")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 321.0
+offset_top = 321.0
+offset_right = 660.0
+offset_bottom = 454.0
+text = "Q - to Switch characters
+SPACE - to perform a Combination
+Left Mouse Button - to peform an Action
+A and D - to move Left and Right
+0 - to reset level"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = -156.0
+offset_top = 134.0
+offset_right = 183.0
+offset_bottom = 267.0
+text = "Combine combinations with actions to do special moves"
+
+[node name="Area1Check" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("6_21xkr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area1Check"]
+position = Vector2(2067, 1353)
+shape = SubResource("RectangleShape2D_kry3j")
+
+[node name="Area1Check2" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("8_344ge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area1Check2"]
+position = Vector2(1499.5, 413.5)
+shape = SubResource("RectangleShape2D_kry3j")
+
+[connection signal="body_entered" from="Area1Check" to="Area1Check" method="_on_body_entered"]
+[connection signal="body_entered" from="Area1Check2" to="Area1Check2" method="_on_body_entered"]

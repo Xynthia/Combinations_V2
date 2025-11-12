@@ -1,0 +1,147 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkflhxx3ikg5k"]
+
+[ext_resource type="Script" uid="uid://c173gfb56a47c" path="res://Scripts/player.gd" id="1_mexgp"]
+[ext_resource type="FontFile" uid="uid://uh472rope3n2" path="res://Assets/Font/Kenney Pixel.ttf" id="2_snjup"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h8wtt"]
+radius = 33.2415
+
+[sub_resource type="LabelSettings" id="LabelSettings_gxsv6"]
+line_spacing = 0.0
+font = ExtResource("2_snjup")
+font_size = 32
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_mexgp")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h8wtt")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Shield" type="ColorRect" parent="Sprites"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -37.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.741176, 0.396078, 0.447059)
+
+[node name="Timer" type="Timer" parent="Sprites/Shield"]
+one_shot = true
+
+[node name="charPosition" type="HBoxContainer" parent="Sprites"]
+layout_direction = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 150.0
+offset_bottom = 32.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="CharPos1" type="PanelContainer" parent="Sprites/charPosition"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="CharPos2" type="PanelContainer" parent="Sprites/charPosition"]
+custom_minimum_size = Vector2(49, 49)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="CharPos3" type="PanelContainer" parent="Sprites/charPosition"]
+custom_minimum_size = Vector2(49, 49)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="actionLabel" type="Label" parent="."]
+offset_left = -49.0
+offset_top = -73.0
+offset_right = 51.0
+offset_bottom = -50.0
+text = "test"
+label_settings = SubResource("LabelSettings_gxsv6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActionStates" type="Node" parent="."]
+
+[node name="CombinationStates" type="Node" parent="."]
+
+[node name="Chars" type="Node" parent="."]
+
+[node name="Red" type="ColorRect" parent="Chars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = -65.0
+offset_top = -315.0
+offset_right = -1.0
+offset_bottom = -251.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(1, 0.342579, 0.313206, 1)
+
+[node name="Blue" type="ColorRect" parent="Chars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = -139.0
+offset_top = -315.0
+offset_right = -75.0
+offset_bottom = -251.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(0.186307, 0.616628, 1, 1)
+
+[node name="Green" type="ColorRect" parent="Chars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = -213.0
+offset_top = -315.0
+offset_right = -149.0
+offset_bottom = -251.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(4.33177e-07, 0.7167, 0.411765, 1)
+
+[node name="Purple" type="ColorRect" parent="Chars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = 9.0
+offset_top = -315.0
+offset_right = 73.0
+offset_bottom = -251.0
+color = Color(0.5937083, 0.43994066, 1, 1)
+
+[node name="Cyan" type="ColorRect" parent="Chars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = 84.0
+offset_top = -315.0
+offset_right = 148.0
+offset_bottom = -251.0
+color = Color(0, 0.74893844, 0.7027182, 1)
+
+[node name="Orange" type="ColorRect" parent="Chars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = 159.0
+offset_top = -315.0
+offset_right = 223.0
+offset_bottom = -251.0
+color = Color(0.87859315, 0.44640958, 0, 1)
+
+[connection signal="timeout" from="Sprites/Shield/Timer" to="." method="_on_timer_timeout"]

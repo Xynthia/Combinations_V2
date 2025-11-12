@@ -1,0 +1,206 @@
+[gd_scene load_steps=12 format=3 uid="uid://dkflhxx3ikg5k"]
+
+[ext_resource type="Script" uid="uid://c173gfb56a47c" path="res://Scripts/player.gd" id="1_mexgp"]
+[ext_resource type="AnimationLibrary" uid="uid://dqffwtsw56nvo" path="res://Assets/animations/PlayerAnimation.res" id="2_6t5aa"]
+[ext_resource type="FontFile" uid="uid://uh472rope3n2" path="res://Assets/Font/Kenney Pixel.ttf" id="2_snjup"]
+[ext_resource type="Texture2D" uid="uid://duok2p6b3nrg5" path="res://Assets/1-Bit Pack/Tilesheet/monochrome-transparent.png" id="2_vgqql"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h8wtt"]
+radius = 33.2415
+
+[sub_resource type="Animation" id="Animation_fkybt"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
+_data = {
+&"RESET": SubResource("Animation_fkybt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+size = Vector2(58.666664, 16.000006)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gxsv6"]
+line_spacing = 0.0
+font = ExtResource("2_snjup")
+font_size = 32
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+radius = 104.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
+radius = 210.2879
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_mexgp")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="body" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h8wtt")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="combiChar" type="Node2D" parent="Sprites"]
+position = Vector2(-32, -32)
+
+[node name="Timer" type="Timer" parent="Sprites/combiChar"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Shield" type="ColorRect" parent="Sprites"]
+visible = false
+z_index = 5
+custom_minimum_size = Vector2(75, 75)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -37.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.741176, 0.396078, 0.447059)
+
+[node name="Timer" type="Timer" parent="Sprites/Shield"]
+one_shot = true
+
+[node name="charPosition" type="HBoxContainer" parent="Sprites"]
+layout_direction = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 150.0
+offset_bottom = 32.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="CharPos1" type="PanelContainer" parent="Sprites/charPosition"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="CharPos2" type="PanelContainer" parent="Sprites/charPosition"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="CharPos3" type="PanelContainer" parent="Sprites/charPosition"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Chars" type="Node" parent="Sprites"]
+
+[node name="Red" type="Sprite2D" parent="Sprites/Chars"]
+unique_name_in_owner = true
+position = Vector2(-1.9073486e-06, -1.9073486e-06)
+scale = Vector2(3.9999998, 3.9999998)
+texture = ExtResource("2_vgqql")
+centered = false
+region_enabled = true
+region_rect = Rect2(442, 0, 16, 16)
+
+[node name="Green" type="Sprite2D" parent="Sprites/Chars"]
+unique_name_in_owner = true
+scale = Vector2(3.9999998, 3.9999998)
+texture = ExtResource("2_vgqql")
+centered = false
+region_enabled = true
+region_rect = Rect2(510, 0, 16, 16)
+
+[node name="Blue" type="Node2D" parent="Sprites/Chars"]
+unique_name_in_owner = true
+
+[node name="sprite1" type="Sprite2D" parent="Sprites/Chars/Blue"]
+scale = Vector2(3.9999998, 3.9999998)
+texture = ExtResource("2_vgqql")
+centered = false
+region_enabled = true
+region_rect = Rect2(425, 0, 16, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Chars/Blue"]
+position = Vector2(32, 54.210518)
+scale = Vector2(2.4699998, 1.4736843)
+texture = ExtResource("2_vgqql")
+region_enabled = true
+region_rect = Rect2(663, 17, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprites"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_x3wgy"),
+&"PlayerAnimation": ExtResource("2_6t5aa")
+}
+
+[node name="AttackBeam" type="Sprite2D" parent="Sprites"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(42, -8)
+rotation = -1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("2_vgqql")
+region_enabled = true
+region_rect = Rect2(612, 51, 16, 17)
+metadata/_edit_use_anchors_ = true
+
+[node name="AttackBeamArea" type="Area2D" parent="Sprites/AttackBeam"]
+rotation = -0.7853982
+scale = Vector2(0.3, 0.3)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/AttackBeam/AttackBeamArea"]
+shape = SubResource("RectangleShape2D_cvnsp")
+debug_color = Color(0.90264046, 0.0001540184, 0.7573312, 0.41960785)
+
+[node name="AttackTimer" type="Timer" parent="Sprites/AttackBeam"]
+wait_time = 0.5
+one_shot = true
+
+[node name="actionLabel" type="Label" parent="."]
+offset_left = -49.0
+offset_top = -73.0
+offset_right = 51.0
+offset_bottom = -49.0
+text = "v"
+label_settings = SubResource("LabelSettings_gxsv6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="attackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attackArea"]
+shape = SubResource("CircleShape2D_vgqql")
+
+[node name="pushArea" type="Area2D" parent="."]
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pushArea"]
+shape = SubResource("CircleShape2D_6t5aa")
+debug_color = Color(0, 0.6216363, 0.5553695, 0.41960785)
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="Sprites/combiChar/Timer" to="." method="_on_combi_timer_timeout"]
+[connection signal="timeout" from="Sprites/Shield/Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="Sprites/AnimationPlayer" to="." method="_on_animation_player_attack_animation_finished"]
+[connection signal="body_entered" from="Sprites/AttackBeam/AttackBeamArea" to="." method="_on_attack_beam_area_body_entered"]
+[connection signal="body_exited" from="Sprites/AttackBeam/AttackBeamArea" to="." method="_on_attack_beam_area_body_exited"]
+[connection signal="timeout" from="Sprites/AttackBeam/AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="pushArea" to="." method="_on_push_area_body_entered"]
+[connection signal="body_exited" from="pushArea" to="." method="_on_push_area_body_exited"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
