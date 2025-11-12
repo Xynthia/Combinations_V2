@@ -65,7 +65,7 @@ position = Vector2(1652, 1108)
 position = Vector2(2519, 1434)
 
 [node name="MovebleBlock" parent="." instance=ExtResource("4_kry3j")]
-position = Vector2(2, 403)
+position = Vector2(6, 334)
 
 [node name="MovebleBlock2" parent="." instance=ExtResource("4_kry3j")]
 position = Vector2(1045, -27)
